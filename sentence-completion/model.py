@@ -18,7 +18,7 @@ def predict(wordvec, dictionary, q):
 		score = 0 
 		# print op, z
 		for w in q['words']:
-			# w = preprocess.preprocess_word(w)
+			w = preprocess.preprocess_word(w)
 			if w == '':
 				continue
 			if (w in dictionary) == False:
@@ -26,7 +26,7 @@ def predict(wordvec, dictionary, q):
 			n = dictionary.index(w)
 			y = wordvec[:, n:n+1]
 
-			score += np.dot(x.transpose(), y).sum() / z
+			score += np.exp(np.dot(x.transpose(), y).sum()) /z
 
 		# print score
 		if score > max_score or max_word == '':
